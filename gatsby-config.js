@@ -4,7 +4,7 @@ module.exports = {
     title: `Lisn Up!`,
     author: `Julian Harris`,
     description: `…where I blog about my new project, Lisn.`,
-    siteUrl: `https://lisn.netlify.com/`,
+    siteUrl: `https://lisn.netlify.app/`,
     social: {
       twitter: `julianharris`,
     },
@@ -63,8 +63,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        // edit below
-        // trackingId: `ADD YOUR TRACKING ID HERE`,
+        trackingId: `UA-25112063-2`,
       },
     },
     {
