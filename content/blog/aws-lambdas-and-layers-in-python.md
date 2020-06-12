@@ -19,7 +19,6 @@ Here are the bits you need for AWS Lambda functions with Layers. The good news i
 2. S3 bucket for the code. One bucket, named of your choice, holds separate zip files for the main lambda function and others for each layer. You can upload them directly to Lambda directly, but they can't be > 50MB (LOL)
 3. A special directory in your own project where all the dependencies are installed (via pip install etc). It can be any name at all. 
 4. A version of your template.yaml file (by convention often "out.yaml" but can be anything) that simply changes any URIs (code, etc) to point to the deployed S3 versions rather than a local reference.
-5. 
 
 This Python example shows how to do it. This is substantially based on [this NodeJS tutorial](https://aws.amazon.com/blogs/compute/working-with-aws-lambda-and-lambda-layers-in-aws-sam/#:~:text=To%20support%20Lambda%20layers%2C%20SAM,or%20sam%20local%20start%2Dapi.). 
 
@@ -59,7 +58,7 @@ Resources:
            RetentionPolicy: Retain
 ```
 
-# Python steps to add layers to an existing lambda function
+## Python steps to add layers to an existing lambda function
 
 The core lambda function root is usually just inside the app folder, e.g. sam-app/hello-world
 
@@ -85,7 +84,7 @@ Deployment: currently two steps: `sam package`, and `sam deploy`. Note `template
 
 6. `$ sam package --template-file template.yaml --s3-bucket temp-converter --output-template-file out.yaml`
 
-sam package turns the relative URLs into public Uris pointing to s3:
+`sam package` turns the relative URLs into public Uris pointing to s3:
 ```
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
@@ -124,6 +123,3 @@ Now deploy using this new output file. Stacks are a pile of AWS resources that i
 
 7. `$ sam deploy --template-file ./out.yaml --stack-name temp-converter-stack --capabilities CAPABILITY_IAM`
 
-Use the template above as a template for your own file. Change the 8 green items to whatever matches your own naming and location setup.
-
-The orange text is the logical name of the layer, and this script refers to it. If you change one you have to change the other. 
