@@ -83,7 +83,7 @@ Start up local version of the lambda function working and test your functions lo
 `cd ../` 
 
 then
- 
+
 `sam build` or `sam build --use-container` if you have native dependencies (e.g. `ffmpeg`)
 
 then: 
@@ -96,11 +96,12 @@ Now prepare for deployment. The bucket name must be globally-unique. Do this onc
 
 5. `$ aws s3api create-bucket --bucket temp-converter`
 
-Deployment: currently two steps: `sam package`, and `sam deploy`. Note `template.yaml` is the default so you don't need to include it. 
+Deployment: currently two steps: `sam package`, and `sam deploy`. Note `template.yaml` must be included even though [the docs (June 2020) say it's optional](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html). Otherwise it includes the template from the build directory or something. 
 
 6. `$ sam package --template-file template.yaml --s3-bucket temp-converter --output-template-file out.yaml`
 
 `sam package` turns the relative URLs into public Uris pointing to s3:
+
 ```
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
@@ -138,4 +139,3 @@ Resources:
 Now deploy using this new output file. Stacks are a pile of AWS resources that it tracks the lifespan of. stack-name is whatever you want to call the resulting stack of this deployment. 
 
 7. `$ sam deploy --template-file ./out.yaml --stack-name temp-converter-stack --capabilities CAPABILITY_IAM`
-
