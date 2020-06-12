@@ -60,6 +60,12 @@ Resources:
 
 ## Python steps to add layers to an existing lambda function
 
+This assumes there's already an s3 bucket with the existing lambda code in it. If not, then you need to create one, using 
+
+`aws s3api create-bucket --bucket temp-converter`
+
+…(in my case).
+
 The core lambda function root is usually just inside the app folder, e.g. sam-app/hello-world
 
 1. `cd hello-world`
@@ -74,7 +80,15 @@ Now install the pip files locally. If you're using pipenv, then you have to make
 
 Start up local version of the lambda function working and test your functions locally in Docker. Note that this requires that you've installed Docker, in case that wasn't obvious. The command below will show you what the URL is. 
 
-4. `cd ../ && sam local start-api`
+`cd ../` 
+
+then
+ 
+`sam build` or `sam build --use-container` if you have native dependencies (e.g. `ffmpeg`)
+
+then: 
+
+4. `sam local start-api`
 
 You can then test your api at `127.0.0.1:3000` without needing to deploy. 
 
