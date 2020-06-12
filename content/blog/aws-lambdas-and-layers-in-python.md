@@ -74,7 +74,7 @@ Now install the pip files locally. If you're using pipenv, then you have to make
 
 Start up local version of the lambda function working and test your functions locally in Docker. Note that this requires that you've installed Docker, in case that wasn't obvious. The command below will show you what the URL is. 
 
-4. `sam local start-api`
+4. `cd ../ && sam local start-api`
 
 Prepare for deployment. The bucket name must be globally-unique. Do this once. Once the bucket's created, you don't need to create another. 
 
