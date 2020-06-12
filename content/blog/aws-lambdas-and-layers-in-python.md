@@ -76,7 +76,9 @@ Start up local version of the lambda function working and test your functions lo
 
 4. `cd ../ && sam local start-api`
 
-Prepare for deployment. The bucket name must be globally-unique. Do this once. Once the bucket's created, you don't need to create another. 
+You can then test your api at `127.0.0.1:3000` without needing to deploy. 
+
+Now prepare for deployment. The bucket name must be globally-unique. Do this once. Once the bucket's created, you don't need to create another. 
 
 5. `$ aws s3api create-bucket --bucket temp-converter`
 
