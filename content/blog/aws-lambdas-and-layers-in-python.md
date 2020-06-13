@@ -8,17 +8,17 @@ description: >-
 ---
 AWS Lambda Layers solve a few problems: 
 
-1. I can't see my lambda code on the AWS Lambda console because there's too much code from all the packages copied into the image.
-2. Also, my package needs access to native binaries that do native things like say `ffmpeg` for sound stuff.
+1. **I can't see my lambda code on the AWS Lambda console** because there's too much code from all the packages copied into the image.
+2. Also, **my package needs access to native binaries** that do native things like say `ffmpeg` for sound stuff.
 
-Solution: move all the library dependencies to a separate Lambda Layer, aka a plain zip file of stuff you want that's copied into your image, usually locally-installed packages and binaries.
+Solution: **move all the library dependencies to a separate Lambda Laye**r, aka a plain zip file of stuff you want that's copied into your image, usually locally-installed packages and binaries.
 
 Here are the bits you need for AWS Lambda functions with Layers. The good news is that there's no change from normal Lambda stuff, so it's a free recap if you're not up to speed with Lambdas.
 
-1. A CloudFormation Stack created from a template.yaml file that's used for managing the lifespan of all the bits and pieces. 
-2. S3 bucket for the code. One bucket, named of your choice, holds separate zip files for the main lambda function and others for each layer. You can upload them directly to Lambda directly, but they can't be > 50MB (LOL)
+1. A CloudFormation Stack created from a `template.yaml` file that's used for managing the lifespan of all the bits and pieces. 
+2. S3 bucket for the code. One bucket, named of your choice, holds separate zip files for the main lambda function and others for each layer. You can upload them directly to Lambda directly, but they can't be > 50MB (LOL like when does that happen)
 3. A special directory in your own project where all the dependencies are installed (via pip install etc). It can be any name at all. 
-4. A version of your template.yaml file (by convention often "out.yaml" but can be anything) that simply changes any URIs (code, etc) to point to the deployed S3 versions rather than a local reference.
+4. A version of your template.yaml file (by convention often "`out.yaml`" but can be anything) that simply changes any URIs (code, etc) to point to the deployed S3 versions rather than a local reference.
 
 This Python example shows how to do it. This is substantially based on [this NodeJS tutorial](https://aws.amazon.com/blogs/compute/working-with-aws-lambda-and-lambda-layers-in-aws-sam/#:~:text=To%20support%20Lambda%20layers%2C%20SAM,or%20sam%20local%20start%2Dapi.). 
 
@@ -70,7 +70,7 @@ The core lambda function root is usually just inside the app folder, e.g. sam-ap
 
 1. `cd hello-world`
 
-Create a special place to keep a project-specific installation of all the python packages needed. The name  doesn't matter. Some AWS docs call it "packages", others use "dependencies". What matters is that the layer points to it in the template.yml "ContentUri" property (see purple highlight)
+**Create a special place to keep a project-specific installation of all the python packages needed.** The name  doesn't matter. Some AWS docs call it "packages", others use "dependencies". What matters is that the layer points to it in the template.yml "ContentUri" property (see purple highlight)
 
 2. `mkdir ../dependencies`
 
