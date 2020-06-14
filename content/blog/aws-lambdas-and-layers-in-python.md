@@ -11,6 +11,12 @@ AWS Lambda Layers solve a few problems:
 1. **I can't see my lambda code on the AWS Lambda console** because there's too much code from all the packages copied into the image.
 2. Also, **my package needs access to native binaries** that do native things like say `ffmpeg` for sound stuff.
 
+(What it DOES NOT solve is:
+
+1. My build is greater than 250MB
+
+…because the Lambda limit of 250MB includes all layers.)
+
 Solution: **move all the library dependencies to a separate Lambda Laye**r, aka a plain zip file of stuff you want that's copied into your image, usually locally-installed packages and binaries.
 
 Here are the bits you need for AWS Lambda functions with Layers. The good news is that there's no change from normal Lambda stuff, so it's a free recap if you're not up to speed with Lambdas.
