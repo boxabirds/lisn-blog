@@ -8,7 +8,7 @@ description: >-
 ---
 AWS Lambda Layers solve a few problems: 
 
-1. **I can't see my lambda code on the AWS Lambda console** because there's too much code from all the packages copied into the image.
+1. **I can't see my lambda code on the AWS Lambda console** because there's too much code from all the packages copied into the image. This is a UX issue with the dev console so IMHO this should just be fixed by AWS. But hey…
 2. Also, **my package needs access to native binaries** that do native things like say `ffmpeg` for sound stuff.
 
 (What it DOES NOT solve is:
